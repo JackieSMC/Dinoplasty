@@ -21,8 +21,9 @@ const app = {
         //console.log(dino.name, dino.id)
         
         const listItem = this.renderListItem(dino)
-        this.list.appendChild(listItem)
-        
+        //this.list.appendChild(listItem)
+        //this.list.prepend(listItem) //not widely supported let's use a more supported way
+        this.list.insertBefore(listItem, this.list.firstChild)
         this.dinos.push(dino)//pushes dino to the array to the end
 
 
