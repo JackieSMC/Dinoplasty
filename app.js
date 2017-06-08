@@ -30,14 +30,15 @@ const app = {
         //adding to the beginning of the array
         //unshift
         this.dinos.unshift(dino)
-
-
-
+        this.save()
+        //localStorage.setItem('dinos', JSON.stringify(this.dinos))
         
         ++ this.max
         ev.target.reset()
+    },
 
-
+    save() {
+        localStorage.setItem('dinos', JSON.stringify(this.dinos))
     },
 
     renderListItem (dino) {
@@ -60,10 +61,12 @@ const app = {
             const currentId = this.dinos[i].id.toString()
             if (listItem.dataset.id === currentId) {
                 this.dinos.splice(i, 1)
+                
                 break;
                 //console.log('found it')
             } 
         }
+        this.save()
 
         //this.dinos.splice(?, 1)
         //console.log('remove')
