@@ -22,7 +22,7 @@ const app = {
         //console.log(dino.name, dino.id)
         
         const listItem = this.renderListItem(dino)
-        //this.list.appendChild(listItem)
+        this.list.appendChild(listItem)
         //this.list.prepend(listItem) //not widely supported let's use a more supported way
         this.list.insertBefore(listItem, this.list.firstChild)
         //this.dinos.push(dino)//pushes dino to the array to the end
@@ -47,10 +47,16 @@ const app = {
         
         item.querySelector('.dino-name').textContent = dino.name
         //const item = document.createElement('li')
-        //item.textContent = dino.name
+        item.textContent = dino.name
+        item.querySelector('button.remove').addEventListener('click', this.removeDino)
         
         return item
-    }
+    },
+    removeDino() {
+        const listItem = ev.target.closest('.dino')//closest is not latest in support
+        listItem.remove()
+        //console.log('remove')
+    },
 
 }
 
