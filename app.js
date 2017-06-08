@@ -2,7 +2,12 @@ const app = {
     init(selectors) {
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
-        document.querySelector(selectors.formSelector).addEventListener('submit', this.addDino.bind(this)) 
+        document.querySelector(selectors.formSelector).addEventListener('submit', this.addDino.bind(this))
+
+        //focus in on an input box
+        document.querySelector(selectors.formSelector).dinoName.focus()
+//html5 way is adding autofocus in html as an attribute //required can be placed in html to require something in the input
+
     },
 
     addDino(ev) {
@@ -18,6 +23,8 @@ const app = {
         this.list.appendChild(listItem)
         
         ++ this.max
+        ev.target.reset()
+
 
     },
 
