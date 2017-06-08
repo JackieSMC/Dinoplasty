@@ -55,6 +55,17 @@ const app = {
     removeDino() {
         const listItem = ev.target.closest('.dino')//closest is not latest in support
         listItem.remove()
+
+        for (let i=0; i < this.dinos.length; i++) {
+            const currentId = this.dinos[i].id.toString()
+            if (listItem.dataset.id === currentId) {
+                this.dinos.splice(i, 1)
+                break;
+                //console.log('found it')
+            } 
+        }
+
+        //this.dinos.splice(?, 1)
         //console.log('remove')
     },
 
