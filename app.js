@@ -23,8 +23,12 @@ const app = {
         const listItem = this.renderListItem(dino)
         //this.list.appendChild(listItem)
         //this.list.prepend(listItem) //not widely supported let's use a more supported way
-        this.list.insertBefore(listItem, this.list.firstChild)
+        //this.list.insertBefore(listItem, this.list.firstChild)
         this.dinos.push(dino)//pushes dino to the array to the end
+
+        //adding to the beginning of the array
+        //unshift
+        this.dinos.unshift(dinos)
 
 
         
