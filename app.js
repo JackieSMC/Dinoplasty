@@ -41,11 +41,16 @@ const app = {
     },
 
     renderListItem (dino) {
-        const item = document.createElement('li')
-        item.textContent = dino.name
+        const item = this.template.cloneNode(true)
+        item.classList.remove('template')
         item.datatset.id = dino.id
+        
+        item.querySelector('.dino-name').textContent = dino.name
+        //const item = document.createElement('li')
+        //item.textContent = dino.name
+        
         return item
-    },
+    }
 
 }
 
