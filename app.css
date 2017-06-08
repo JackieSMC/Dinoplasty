@@ -1,0 +1,5 @@
+.template {
+     /*visibility: hidden; is another method to hide an element*/
+    
+    display: none;
+}
