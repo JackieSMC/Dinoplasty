@@ -4,25 +4,30 @@ const app = {
         this.max = 0
         this.list = document.querySelector(selectors.listSelector)
         this.template = document.querySelector(selectors.templateSelector)
-        document.querySelector(selectors.formSelector).addEventListener('submit', this.addDino.bind(this))
+        document.querySelector(selectors.formSelector).addEventListener('submit', this.addDinoFromForm.bind(this))
 
         //focus in on an input box
         document.querySelector(selectors.formSelector).dinoName.focus()
+        
+        this.load()
 //html5 way is adding autofocus in html as an attribute //required can be placed in html to require something in the input
 
     },
 
-    addDino(ev) {
-        ev.preventDefault()
-        //const dinoName = ev.target.dinoName.value
-        const dino = {//this creates an object with a name property, and id property
-            id: this.max + 1,
-            name: ev.target.dinoName.value,
+    load () {
+        //load the JSON from localStorage
+        const dinoJSON = localStorage.getItem('dinos')
+        //convert the JSCON back into an array
+        const dinoArray = JSON.parse(dinoJSON)
+        //set this.dinos with the dinos from that array
+        if (dinoArray) {
+        dinoArray.reverse().map(this.addDino.bind(this))
         }
-        //console.log(dino.name, dino.id)
-        
+    },
+
+    addDino(dino) {
         const listItem = this.renderListItem(dino)
-        this.list.appendChild(listItem)
+        //this.list.appendChild(listItem)
         //this.list.prepend(listItem) //not widely supported let's use a more supported way
         this.list.insertBefore(listItem, this.list.firstChild)
         //this.dinos.push(dino)//pushes dino to the array to the end
@@ -31,7 +36,29 @@ const app = {
         //unshift
         this.dinos.unshift(dino)
         this.save()
+    },
+
+    addDinoFromForm(ev) {//rename of addDino
+        ev.preventDefault()
+        //const dinoName = ev.target.dinoName.value
+        const dino = {//this creates an object with a name property, and id property
+            id: this.max + 1,
+            name: ev.target.dinoName.value,
+        }
+        //console.log(dino.name, dino.id)
+        
+        //const listItem = this.renderListItem(dino)
+        //this.list.appendChild(listItem)
+        //this.list.prepend(listItem) //not widely supported let's use a more supported way
+        //this.list.insertBefore(listItem, this.list.firstChild)
+        //this.dinos.push(dino)//pushes dino to the array to the end
+
+        //adding to the beginning of the array
+        //unshift
+        //this.dinos.unshift(dino)
+        //this.save()
         //localStorage.setItem('dinos', JSON.stringify(this.dinos))
+        this.addDino(dino)
         
         ++ this.max
         ev.target.reset()
