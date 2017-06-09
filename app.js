@@ -36,6 +36,8 @@ const app = {
         //unshift
         this.dinos.unshift(dino)
         this.save()
+
+        ++ this.max
     },
 
     addDinoFromForm(ev) {//rename of addDino
@@ -60,7 +62,6 @@ const app = {
         //localStorage.setItem('dinos', JSON.stringify(this.dinos))
         this.addDino(dino)
         
-        ++ this.max
         ev.target.reset()
     },
 
@@ -75,12 +76,12 @@ const app = {
         
         item.querySelector('.dino-name').textContent = dino.name
         //const item = document.createElement('li')
-        item.textContent = dino.name
-        item.querySelector('button.remove').addEventListener('click', this.removeDino)
+        //item.textContent = dino.name
+        item.querySelector('button.remove').addEventListener('click', this.removeDino.bind(this))
         
         return item
     },
-    removeDino() {
+    removeDino(ev) {
         const listItem = ev.target.closest('.dino')//closest is not latest in support
         listItem.remove()
 
