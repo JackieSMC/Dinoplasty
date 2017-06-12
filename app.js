@@ -2,9 +2,13 @@ const app = {
     init(selectors) {
         this.dinos =[]
         this.max = 0
-        this.list = document.querySelector(selectors.listSelector)
-        this.template = document.querySelector(selectors.templateSelector)
-        document.querySelector(selectors.formSelector).addEventListener('submit', this.addDinoFromForm.bind(this))
+        this.list = document
+            .querySelector(selectors.listSelector)
+        this.template = document
+            .querySelector(selectors.templateSelector)
+        document
+            .querySelector(selectors.formSelector)
+            .addEventListener('submit', this.addDinoFromForm.bind(this))
 
         //focus in on an input box
         document.querySelector(selectors.formSelector).dinoName.focus()
@@ -21,7 +25,9 @@ const app = {
         const dinoArray = JSON.parse(dinoJSON)
         //set this.dinos with the dinos from that array
         if (dinoArray) {
-        dinoArray.reverse().map(this.addDino.bind(this))
+        dinoArray
+            .reverse()
+            .map(this.addDino.bind(this))
         }
     },
 
@@ -60,8 +66,8 @@ const app = {
         //this.dinos.unshift(dino)
         //this.save()
         //localStorage.setItem('dinos', JSON.stringify(this.dinos))
-        this.addDino(dino)
         
+        this.addDino(dino)
         ev.target.reset()
     },
 
@@ -74,10 +80,14 @@ const app = {
         item.classList.remove('template')
         item.datatset.id = dino.id
         
-        item.querySelector('.dino-name').textContent = dino.name
+        item
+            .querySelector('.dino-name')
+            .textContent = dino.name
         //const item = document.createElement('li')
         //item.textContent = dino.name
-        item.querySelector('button.remove').addEventListener('click', this.removeDino.bind(this))
+        item
+            .querySelector('button.remove')
+            .addEventListener('click', this.removeDino.bind(this))
         
         return item
     },
@@ -85,11 +95,10 @@ const app = {
         const listItem = ev.target.closest('.dino')//closest is not latest in support
         listItem.remove()
 
-        for (let i=0; i < this.dinos.length; i++) {
+        for (let i = 0; i < this.dinos.length; i++) {
             const currentId = this.dinos[i].id.toString()
             if (listItem.dataset.id === currentId) {
                 this.dinos.splice(i, 1)
-                
                 break;
                 //console.log('found it')
             } 
