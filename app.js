@@ -92,12 +92,27 @@ const app = {
       this.list.insertBefore(listItem, listItem.previousSibling)
 
       const previousDino = this.dinos[index - 1]
-      this.dinos[index-1]=1
-      this.dinos[index]=previousDinos
+      this.dinos[index - 1] = 1
+      this.dinos[index] = previousDino
 
       this.save()
     }
     
+  },
+    moveDown(dino, ev) {
+      const listItem = ev.target.closet('.dino')
+      const index = this.dinos.findIndex((currentDino, i) => {
+     return currentDino.id === dino.id
+    })
+    if (index < this.dinos.length -1) {
+      this.list.insertBefore(listItem.nextElementSibling, listItem)
+
+      const nextDino = this.dinos[index + 1]
+      this.dinos[index+1] = dino
+      this.dinos[index] = nextDino
+
+      this.save()
+    }
   },
 
   favDino(dino, ev) {
