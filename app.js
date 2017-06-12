@@ -52,6 +52,7 @@ const app = {
         const dino = {//this creates an object with a name property, and id property
             id: this.max + 1,
             name: ev.target.dinoName.value,
+            fav: false,
         }
         //console.log(dino.name, dino.id)
         
@@ -72,7 +73,8 @@ const app = {
     },
 
     save() {
-        localStorage.setItem('dinos', JSON.stringify(this.dinos))
+        localStorage
+            .setItem('dinos', JSON.stringify(this.dinos))
     },
 
     renderListItem (dino) {
@@ -83,13 +85,39 @@ const app = {
         item
             .querySelector('.dino-name')
             .textContent = dino.name
+
+        if (dino.fav) {
+            item.classList.add('fav')
+
+        }
         //const item = document.createElement('li')
         //item.textContent = dino.name
         item
             .querySelector('button.remove')
             .addEventListener('click', this.removeDino.bind(this))
+
+        item
+            .querySelector('button.fav')
+            .addEventListener('click', this.favDino.bind(this, dino))
+        
         
         return item
+    },
+    
+    favDino(dino, ev) {
+    //console.log(arguments)
+       const listItem = ev.target.closest('.dino')
+       
+       dino.fav = !dino.fav
+       if (dino.fav) {
+       listItem.classList.add('fav')
+       } else {
+           listItem.classList.remove('fav')
+       }
+
+
+       this.save()
+
     },
     removeDino(ev) {
         const listItem = ev.target.closest('.dino')//closest is not latest in support
