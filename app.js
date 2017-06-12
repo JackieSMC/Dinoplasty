@@ -80,13 +80,33 @@ const app = {
       .querySelector('button.move-up')
       .addEventListener('click', this.moveUp.bind(this, dino))
 
+    item
+      .querySelector('button.edit')
+      .addEventListener('click', this.editDino.bind(this, dino))
+
     return item
+  },
+
+  edit(dino, ev) {
+    const listItem = ev.target.closet('.dino')
+    const nameField = listItem.querySelector('.dino-name')
+    
+    if (nameField.isContentEditable) {
+      dino.name = nameField.textContent
+      nameField.contentEditable = false
+
+      this.save()
+      
+    } else {
+      nameField.contentEditable = true
+    }
+    
   },
 
   moveUp(dino, ev) {
     const listItem = ev.target.closet('.dino')
-   const index = this.dinos.findIndex((currentDino, i) => {
-     return currentDino.id === dino.id
+    const index = this.dinos.findIndex((currentDino, i) => {
+      return currentDino.id === dino.id
     })
     if (index > 0) {
       this.list.insertBefore(listItem, listItem.previousSibling)
