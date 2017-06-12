@@ -1,146 +1,136 @@
 const app = {
-    init(selectors) {
-        this.dinos =[]
-        this.max = 0
-        this.list = document
-            .querySelector(selectors.listSelector)
-        this.template = document
-            .querySelector(selectors.templateSelector)
-        document
-            .querySelector(selectors.formSelector)
-            .addEventListener('submit', this.addDinoFromForm.bind(this))
+  init(selectors) {
+    this.dinos = []
+    this.max = 0
+    this.list = document
+      .querySelector(selectors.listSelector)
+    this.template = document
+      .querySelector(selectors.templateSelector)
+    document
+      .querySelector(selectors.formSelector)
+      .addEventListener('submit', this.addDinoFromForm.bind(this))
 
-        //focus in on an input box
-        document.querySelector(selectors.formSelector).dinoName.focus()
-        
-        this.load()
-//html5 way is adding autofocus in html as an attribute //required can be placed in html to require something in the input
+    this.load()
+  },
 
-    },
+  load() {
+    // load the JSON from localStorage
+    const dinoJSON = localStorage.getItem('dinos')
 
-    load () {
-        //load the JSON from localStorage
-        const dinoJSON = localStorage.getItem('dinos')
-        //convert the JSCON back into an array
-        const dinoArray = JSON.parse(dinoJSON)
-        //set this.dinos with the dinos from that array
-        if (dinoArray) {
-        dinoArray
-            .reverse()
-            .map(this.addDino.bind(this))
-        }
-    },
+    // convert the JSON back into an array
+    const dinoArray = JSON.parse(dinoJSON)
 
-    addDino(dino) {
-        const listItem = this.renderListItem(dino)
-        //this.list.appendChild(listItem)
-        //this.list.prepend(listItem) //not widely supported let's use a more supported way
-        this.list.insertBefore(listItem, this.list.firstChild)
-        //this.dinos.push(dino)//pushes dino to the array to the end
+    // set this.dinos with the dinos from that array
+    if (dinoArray) {
+      dinoArray
+        .reverse()
+        .map(this.addDino.bind(this))
+    }
+  },
 
-        //adding to the beginning of the array
-        //unshift
-        this.dinos.unshift(dino)
-        this.save()
+  addDino(dino) {
+    const listItem = this.renderListItem(dino)
+    this.list.insertBefore(listItem, this.list.firstChild)
 
-        ++ this.max
-    },
+    this.dinos.unshift(dino)
+    this.save()
 
-    addDinoFromForm(ev) {//rename of addDino
-        ev.preventDefault()
-        //const dinoName = ev.target.dinoName.value
-        const dino = {//this creates an object with a name property, and id property
-            id: this.max + 1,
-            name: ev.target.dinoName.value,
-            fav: false,
-        }
-        //console.log(dino.name, dino.id)
-        
-        //const listItem = this.renderListItem(dino)
-        //this.list.appendChild(listItem)
-        //this.list.prepend(listItem) //not widely supported let's use a more supported way
-        //this.list.insertBefore(listItem, this.list.firstChild)
-        //this.dinos.push(dino)//pushes dino to the array to the end
+    ++ this.max
+  },
 
-        //adding to the beginning of the array
-        //unshift
-        //this.dinos.unshift(dino)
-        //this.save()
-        //localStorage.setItem('dinos', JSON.stringify(this.dinos))
-        
-        this.addDino(dino)
-        ev.target.reset()
-    },
+  addDinoFromForm(ev) {
+    ev.preventDefault()
 
-    save() {
-        localStorage
-            .setItem('dinos', JSON.stringify(this.dinos))
-    },
+    const dino = {
+      id: this.max + 1,
+      name: ev.target.dinoName.value,
+      fav: false,
+    }
 
-    renderListItem (dino) {
-        const item = this.template.cloneNode(true)
-        item.classList.remove('template')
-        item.datatset.id = dino.id
-        
-        item
-            .querySelector('.dino-name')
-            .textContent = dino.name
-
-        if (dino.fav) {
-            item.classList.add('fav')
-
-        }
-        //const item = document.createElement('li')
-        //item.textContent = dino.name
-        item
-            .querySelector('button.remove')
-            .addEventListener('click', this.removeDino.bind(this))
-
-        item
-            .querySelector('button.fav')
-            .addEventListener('click', this.favDino.bind(this, dino))
-        
-        
-        return item
-    },
+    this.addDino(dino)
     
-    favDino(dino, ev) {
-    //console.log(arguments)
-       const listItem = ev.target.closest('.dino')
-       
-       dino.fav = !dino.fav
-       if (dino.fav) {
-       listItem.classList.add('fav')
-       } else {
-           listItem.classList.remove('fav')
-       }
+    ev.target.reset()
+  },
 
+  save() {
+    localStorage
+      .setItem('dinos', JSON.stringify(this.dinos))
+  },
 
-       this.save()
+  renderListItem(dino) {
+    const item = this.template.cloneNode(true)
+    item.classList.remove('template')
+    item.dataset.id = dino.id
 
-    },
-    removeDino(ev) {
-        const listItem = ev.target.closest('.dino')//closest is not latest in support
-        listItem.remove()
+    item
+      .querySelector('.dino-name')
+      .textContent = dino.name
 
-        for (let i = 0; i < this.dinos.length; i++) {
-            const currentId = this.dinos[i].id.toString()
-            if (listItem.dataset.id === currentId) {
-                this.dinos.splice(i, 1)
-                break;
-                //console.log('found it')
-            } 
-        }
-        this.save()
+    if (dino.fav) {
+      item.classList.add('fav')
+    }
 
-        //this.dinos.splice(?, 1)
-        //console.log('remove')
-    },
+    item
+      .querySelector('button.remove')
+      .addEventListener('click', this.removeDino.bind(this))
+    item
+      .querySelector('button.fav')
+      .addEventListener('click', this.favDino.bind(this, dino))
+    item
+      .querySelector('button.move-up')
+      .addEventListener('click', this.moveUp.bind(this, dino))
 
+    return item
+  },
+
+  moveUp(dino, ev) {
+    const listItem = ev.target.closet('.dino')
+   const index = this.dinos.findIndex((currentDino, i) => {
+     return currentDino.id === dino.id
+    })
+    if (index > 0) {
+      this.list.insertBefore(listItem, listItem.previousSibling)
+
+      const previousDino = this.dinos[index - 1]
+      this.dinos[index-1]=1
+      this.dinos[index]=previousDinos
+
+      this.save()
+    }
+    
+  },
+
+  favDino(dino, ev) {
+    const listItem = ev.target.closest('.dino')
+    dino.fav = !dino.fav
+
+    if (dino.fav) {
+      listItem.classList.add('fav')
+    } else {
+      listItem.classList.remove('fav')
+    }
+
+    this.save()
+  },
+
+  removeDino(ev) {
+    const listItem = ev.target.closest('.dino')
+    listItem.remove()
+
+    for (let i = 0; i < this.dinos.length; i++) {
+      const currentId = this.dinos[i].id.toString()
+      if (listItem.dataset.id === currentId) {
+        this.dinos.splice(i, 1)
+        break;
+      }
+    }
+
+    this.save()
+  },
 }
 
 app.init({
-    formSelector: '#dino-form',
-    listSelector: '#dino-list',
-    templateSelector: '.dino.template',
+  formSelector: '#dino-form',
+  listSelector: '#dino-list',
+  templateSelector: '.dino.template',
 })
