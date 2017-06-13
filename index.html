@@ -7,17 +7,31 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
-        <link rel="stylesheet" href="app.css">
+        <link rel='stylesheet' href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
        <div class="row">
            <div class="medium-8 medium-offset-2 column">
                <h1>Dino</h1>
                <form id="dino-form" >
-                   <div class = "input-group">
-                        <input type="text" class="input-group-field" name="dinoName" placeholder="Name a Dino" autofocus required>
-                        <div class="input-group-button">
-                            <button type="submit" class="button primary">DinoIN</button>
+                   <div class="row">
+                   <div class = "small-5 column">
+                        <input type="text" name="dinoName" placeholder="Name a Dino" autofocus required>
+                   </div>
+                   <div class="small-4 column">
+                       <select name="diet">
+                           <option value="">-- Diet --</option>
+                           <option value="">Carnivore</option>
+                           <option value="">Herbivore</option>
+                           <option value="">Omnivore</option>
+                       </select>
+                   </div>
+                        <div class="small-3 column">
+                            <button type="submit" class="button primary expanded"> Dino In
+                               <!--<i class="fa fa-plus" aria-hidden ="true"></i>-->
+                                
+                            </button>
                         </div>
                    </div>
                </form>
@@ -26,21 +40,30 @@
        
        <div class="row">
            <div class="medium-8 medium-offset-2 column">
-               <ul id="dino-list" class="no-bullet">
-                   <li class="dino template">
-                       <span class="dino-name"></span>
-                       <span class="actions button-group ">
-                           <button class="fav button">Favorite</button>
-                            <button class="remove button alert">Remove</button>
-                       </span>
-                   </li>
-               </ul>
+               <ul id="dino-list" class="no-bullet"></ul>
            </div>
        </div>
-
-       <!--<div data-breakfast="granola bar">Heidi</div>-->
-        <!--div[data-breakfast='granola bar']
-        input[autofocus]-->
+        <li class="dino template">
+            <span class="dino-name"></span>
+            <span class="dino-diet"></span>
+            <span class="actions button-group">
+                <button class="edit button">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button class="fav button warning">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </button>
+                <button class="move-up button">
+                    <i class="fa fa-arrow-up" aria-hidden="true" ></i>
+                </button>
+                <button class="move-down button">
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </button>
+                <button class="remove button alert">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+            </span>
+        </li>
         <script src="app.js"></script>
     </body>
 </html>
