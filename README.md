@@ -4,6 +4,7 @@ Dinosaurs! Yay!
 
 ## Day 3 Homework
 
+<<<<<<< HEAD
 * Store the dinosaurs in an array, as well as in the DOM. (Completed)
 
 ### Mega Bonus Credit
@@ -49,3 +50,36 @@ Add a search field, and only show the results that match the search criteria. He
 * [`Array.prototype.find()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find?v=control) (very similar to `findIndex()`)
 * [`HTMLElement.dataset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) (remember those IDs we stored?)
 * [`display: none`](https://www.w3schools.com/css/css_display_visibility.asp) (Heck, you could add a class that includes this rule, and add and move that class from elements you wish to hide.)
+=======
+* Store the dinosaurs in an array, as well as in the DOM.
+
+### Mega Bonus Credit
+
+* Add a promote/fav button, just like you did yesterday!
+* Add a delete button, just like yesterday!
+
+### Super Mega Bonus Credit
+
+* Add buttons to move a dinosaur up and down the list.
+
+### Super Mega Bonus Credit Hyper Fighting
+
+* Persist the dinosaur data using `window.localStorage`. The dinosaurs should stay in the list even when the page is refreshed.
+
+## Day 4 Homework
+
+* Fix the issue with dino id values, which sometimes results in removing the wrong dinosaur from the array (and thus from `localStorage`).
+
+### Bonus Credit
+
+* Add another field to the form, and make sure that data (such as eating habits, era in which it lived, etc.) also persists across page loads.
+* Make it look nice.
+
+### Super Mega Bonus Credit
+
+* Edit the names of dinosaurs that are already in the list (and make sure the changes persist across page loads). Gee, it would nice if we could make that span's _content editable_ somehow.
+
+### Super Mega Bonus Credit Hyper Fighting
+
+* Have a good weekend.
+>>>>>>> 889963c38a1a9da826d288310c5881fbae0d4ad7
